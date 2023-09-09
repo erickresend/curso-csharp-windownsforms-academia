@@ -12,6 +12,7 @@ namespace Academia
 {
     public partial class F_Gestaoturmas : Form
     {
+        string idSelecionado;
         public F_Gestaoturmas()
         {
             InitializeComponent();
@@ -86,17 +87,30 @@ namespace Academia
         {
             try
             {
-                if(dgv_turmas.SelectedRows.Count == 1)
+                if (dgv_turmas.SelectedRows.Count == 1)
                 {
-                    string vquery = "SELECT N_IDPROFESSOR, N_MAXALUNOS, T_STATUS, N_IDHORARIO CASE WHEN FROM tb_turmas WHERE N_IDTURMA=" + dgv_turmas.SelectedRows[0].Cells[0].Value;
-                    DataTable dt = Banco.dql(vquery);
-                    cb_professor.Text = dt.Rows[0].ItemArray[0].ToString();
-                    n_maxAlunos.Text = dt.Rows[0].ItemArray[1].ToString();
-                    cb_status.Text = dt.Rows[0].ItemArray[2].ToString();
-                    cb_horario.Text = dt.Rows[0].ItemArray[3].ToString();
+                    idSelecionado = dgv_turmas.Rows[dgv_turmas.SelectedRows[0].Index].Cells[0].Value.ToString();
+                    string vqueryCampos = String.Format(@"
+                        SELECT 
+                            T_DSCTURMA,
+                            N_IDPROFESSOR,
+                            N_MAXALUNOS,
+                            T_STATUS,
+                            N_IDHORARIO
+                        FROM
+                            tb_turmas
+                        WHERE
+                            N_IDTURMA={0}
+                    ", idSelecionado);
+                    DataTable dt = Banco.dql(vqueryCampos);
+                    tb_descricao.Text = dt.Rows[0].Field<string>("T_DSCTURMA");
+                    cb_professor.SelectedValue = dt.Rows[0].Field<Int64>("N_IDPROFESSOR").ToString();
+                    n_maxAlunos.Value = dt.Rows[0].Field<Int64>("N_MAXALUNOS");
+                    cb_status.SelectedValue = dt.Rows[0].Field<string>("T_STATUS");
+                    cb_horario.SelectedValue = dt.Rows[0].Field<Int64>("N_IDHORARIO");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

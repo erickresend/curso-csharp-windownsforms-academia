@@ -44,6 +44,8 @@
             cb_status = new ComboBox();
             cb_horario = new ComboBox();
             n_maxAlunos = new NumericUpDown();
+            label5 = new Label();
+            tb_descricao = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgv_turmas).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)n_maxAlunos).BeginInit();
@@ -92,7 +94,7 @@
             btn_fechar.Location = new Point(523, 3);
             btn_fechar.Name = "btn_fechar";
             btn_fechar.Size = new Size(91, 23);
-            btn_fechar.TabIndex = 9;
+            btn_fechar.TabIndex = 10;
             btn_fechar.Text = "Fechar";
             btn_fechar.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +103,7 @@
             btn_salvarEdicoes.Location = new Point(138, 3);
             btn_salvarEdicoes.Name = "btn_salvarEdicoes";
             btn_salvarEdicoes.Size = new Size(91, 23);
-            btn_salvarEdicoes.TabIndex = 6;
+            btn_salvarEdicoes.TabIndex = 7;
             btn_salvarEdicoes.Text = "Salvar edições";
             btn_salvarEdicoes.UseVisualStyleBackColor = true;
             // 
@@ -110,7 +112,7 @@
             btn_imprimirTurma.Location = new Point(398, 3);
             btn_imprimirTurma.Name = "btn_imprimirTurma";
             btn_imprimirTurma.Size = new Size(97, 23);
-            btn_imprimirTurma.TabIndex = 8;
+            btn_imprimirTurma.TabIndex = 9;
             btn_imprimirTurma.Text = "Imprimir turma";
             btn_imprimirTurma.UseVisualStyleBackColor = true;
             // 
@@ -119,7 +121,7 @@
             btn_excluirTurma.Location = new Point(265, 3);
             btn_excluirTurma.Name = "btn_excluirTurma";
             btn_excluirTurma.Size = new Size(91, 23);
-            btn_excluirTurma.TabIndex = 7;
+            btn_excluirTurma.TabIndex = 8;
             btn_excluirTurma.Text = "Excluir turma";
             btn_excluirTurma.UseVisualStyleBackColor = true;
             // 
@@ -128,14 +130,14 @@
             btn_novaTurma.Location = new Point(12, 3);
             btn_novaTurma.Name = "btn_novaTurma";
             btn_novaTurma.Size = new Size(91, 23);
-            btn_novaTurma.TabIndex = 5;
+            btn_novaTurma.TabIndex = 6;
             btn_novaTurma.Text = "Nova turma";
             btn_novaTurma.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(387, 12);
+            label1.Location = new Point(387, 80);
             label1.Name = "label1";
             label1.Size = new Size(56, 15);
             label1.TabIndex = 9;
@@ -144,7 +146,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(387, 82);
+            label2.Location = new Point(387, 150);
             label2.Name = "label2";
             label2.Size = new Size(89, 15);
             label2.TabIndex = 10;
@@ -153,7 +155,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(493, 82);
+            label3.Location = new Point(493, 150);
             label3.Name = "label3";
             label3.Size = new Size(39, 15);
             label3.TabIndex = 11;
@@ -162,7 +164,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(387, 158);
+            label4.Location = new Point(387, 226);
             label4.Name = "label4";
             label4.Size = new Size(47, 15);
             label4.TabIndex = 12;
@@ -172,39 +174,57 @@
             // 
             cb_professor.FormattingEnabled = true;
             cb_professor.Items.AddRange(new object[] { "Fulano, Ciclano, Beltrano" });
-            cb_professor.Location = new Point(387, 30);
+            cb_professor.Location = new Point(387, 98);
             cb_professor.Name = "cb_professor";
             cb_professor.Size = new Size(227, 23);
-            cb_professor.TabIndex = 1;
+            cb_professor.TabIndex = 2;
             // 
             // cb_status
             // 
             cb_status.FormattingEnabled = true;
-            cb_status.Location = new Point(493, 100);
+            cb_status.Location = new Point(493, 168);
             cb_status.Name = "cb_status";
             cb_status.Size = new Size(121, 23);
-            cb_status.TabIndex = 3;
+            cb_status.TabIndex = 4;
             // 
             // cb_horario
             // 
             cb_horario.FormattingEnabled = true;
-            cb_horario.Location = new Point(387, 176);
+            cb_horario.Location = new Point(387, 244);
             cb_horario.Name = "cb_horario";
             cb_horario.Size = new Size(227, 23);
-            cb_horario.TabIndex = 4;
+            cb_horario.TabIndex = 5;
             // 
             // n_maxAlunos
             // 
-            n_maxAlunos.Location = new Point(387, 101);
+            n_maxAlunos.Location = new Point(387, 169);
             n_maxAlunos.Name = "n_maxAlunos";
             n_maxAlunos.Size = new Size(100, 23);
-            n_maxAlunos.TabIndex = 2;
+            n_maxAlunos.TabIndex = 3;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(387, 12);
+            label5.Name = "label5";
+            label5.Size = new Size(58, 15);
+            label5.TabIndex = 13;
+            label5.Text = "Descrição";
+            // 
+            // tb_descricao
+            // 
+            tb_descricao.Location = new Point(387, 30);
+            tb_descricao.Name = "tb_descricao";
+            tb_descricao.Size = new Size(227, 23);
+            tb_descricao.TabIndex = 1;
             // 
             // F_Gestaoturmas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(626, 434);
+            Controls.Add(tb_descricao);
+            Controls.Add(label5);
             Controls.Add(n_maxAlunos);
             Controls.Add(cb_horario);
             Controls.Add(cb_status);
@@ -246,5 +266,7 @@
         private ComboBox cb_status;
         private ComboBox cb_horario;
         private NumericUpDown n_maxAlunos;
+        private Label label5;
+        private TextBox tb_descricao;
     }
 }
