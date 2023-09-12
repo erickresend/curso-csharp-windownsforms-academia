@@ -115,5 +115,44 @@ namespace Academia
                 throw ex;
             }
         }
+
+        private void btn_fechar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btn_novaTurma_Click(object sender, EventArgs e)
+        {
+            tb_descricao.Clear();
+            cb_professor.SelectedItem = null; //ou  cb_professor.SelectedIndex = -1;
+            n_maxAlunos.Value = 0;
+            cb_status.SelectedItem = null;
+            cb_horario.SelectedItem = null;
+            tb_descricao.Focus();
+        }
+
+        private void btn_salvarEdicoes_Click(object sender, EventArgs e)
+        {
+            int linha = dgv_turmas.SelectedRows[0].Index;
+
+            string queryAlterarTurma = String.Format(@"
+                UPDATE 
+                    tb_turmas
+                SET 
+                    T_DSCTURMA='{0}',
+                    N_IDPROFESSOR={1},
+                    N_MAXALUNOS={2},
+                    T_STATUS='{3}',
+                    N_IDHORARIO={4}
+                WHERE
+                    N_IDTURMA={5}
+            ", tb_descricao.Text, cb_professor.SelectedValue, Convert.ToInt32(n_maxAlunos.Value), 
+            cb_status.SelectedValue, cb_horario.SelectedValue, Convert.ToInt32(idSelecionado));
+
+            Banco.dml(queryAlterarTurma, "Turma alterada com sucesso", "ERRO: ");
+
+            dgv_turmas[1, linha].Value = tb_descricao.Text;
+            dgv_turmas[2, linha].Value = cb_horario.Text;
+        }
     }
 }

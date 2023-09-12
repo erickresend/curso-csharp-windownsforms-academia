@@ -46,6 +46,8 @@
             n_maxAlunos = new NumericUpDown();
             label5 = new Label();
             tb_descricao = new TextBox();
+            tb_vagas = new TextBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgv_turmas).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)n_maxAlunos).BeginInit();
@@ -97,6 +99,7 @@
             btn_fechar.TabIndex = 10;
             btn_fechar.Text = "Fechar";
             btn_fechar.UseVisualStyleBackColor = true;
+            btn_fechar.Click += btn_fechar_Click;
             // 
             // btn_salvarEdicoes
             // 
@@ -106,6 +109,7 @@
             btn_salvarEdicoes.TabIndex = 7;
             btn_salvarEdicoes.Text = "Salvar edições";
             btn_salvarEdicoes.UseVisualStyleBackColor = true;
+            btn_salvarEdicoes.Click += btn_salvarEdicoes_Click;
             // 
             // btn_imprimirTurma
             // 
@@ -133,6 +137,7 @@
             btn_novaTurma.TabIndex = 6;
             btn_novaTurma.Text = "Nova turma";
             btn_novaTurma.UseVisualStyleBackColor = true;
+            btn_novaTurma.Click += btn_novaTurma_Click;
             // 
             // label1
             // 
@@ -218,11 +223,29 @@
             tb_descricao.Size = new Size(227, 23);
             tb_descricao.TabIndex = 1;
             // 
+            // tb_vagas
+            // 
+            tb_vagas.Location = new Point(387, 324);
+            tb_vagas.Name = "tb_vagas";
+            tb_vagas.Size = new Size(100, 23);
+            tb_vagas.TabIndex = 14;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(387, 306);
+            label6.Name = "label6";
+            label6.Size = new Size(37, 15);
+            label6.TabIndex = 15;
+            label6.Text = "Vagas";
+            // 
             // F_Gestaoturmas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(626, 434);
+            Controls.Add(label6);
+            Controls.Add(tb_vagas);
             Controls.Add(tb_descricao);
             Controls.Add(label5);
             Controls.Add(n_maxAlunos);
@@ -268,5 +291,7 @@
         private NumericUpDown n_maxAlunos;
         private Label label5;
         private TextBox tb_descricao;
+        private TextBox tb_vagas;
+        private Label label6;
     }
 }
