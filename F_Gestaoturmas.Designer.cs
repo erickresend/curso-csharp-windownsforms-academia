@@ -128,6 +128,7 @@
             btn_excluirTurma.TabIndex = 8;
             btn_excluirTurma.Text = "Excluir turma";
             btn_excluirTurma.UseVisualStyleBackColor = true;
+            btn_excluirTurma.Click += btn_excluirTurma_Click;
             // 
             // btn_novaTurma
             // 

@@ -13,6 +13,8 @@ namespace Academia
     public partial class F_Gestaoturmas : Form
     {
         string idSelecionado;
+        int modo = 1; //1=Edição 2=Inserção
+        string vqueryDGV = "";
         public F_Gestaoturmas()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace Academia
         {
             try
             {
-                string vqueryDGV = @"
+                vqueryDGV = @"
                     SELECT 
                         tbt.N_IDTURMA as 'ID', 
                         tbt.T_DSCTURMA as 'Turma',
@@ -89,6 +91,7 @@ namespace Academia
             {
                 if (dgv_turmas.SelectedRows.Count == 1)
                 {
+                    modo = 1;
                     idSelecionado = dgv_turmas.Rows[dgv_turmas.SelectedRows[0].Index].Cells[0].Value.ToString();
                     string vqueryCampos = String.Format(@"
                         SELECT 
@@ -129,30 +132,65 @@ namespace Academia
             cb_status.SelectedItem = null;
             cb_horario.SelectedItem = null;
             tb_descricao.Focus();
+            modo = 2;
         }
 
         private void btn_salvarEdicoes_Click(object sender, EventArgs e)
         {
             int linha = dgv_turmas.SelectedRows[0].Index;
 
-            string queryAlterarTurma = String.Format(@"
-                UPDATE 
-                    tb_turmas
-                SET 
-                    T_DSCTURMA='{0}',
-                    N_IDPROFESSOR={1},
-                    N_MAXALUNOS={2},
-                    T_STATUS='{3}',
-                    N_IDHORARIO={4}
-                WHERE
-                    N_IDTURMA={5}
-            ", tb_descricao.Text, cb_professor.SelectedValue, Convert.ToInt32(n_maxAlunos.Value), 
-            cb_status.SelectedValue, cb_horario.SelectedValue, Convert.ToInt32(idSelecionado));
+            if (modo == 2)
+            {
+                string queryInserirTurma = String.Format(@"
+                    INSERT INTO
+                        tb_turmas
+                    (T_DSCTURMA, N_IDPROFESSOR, N_MAXALUNOS, T_STATUS, N_IDHORARIO)
+                    VALUES
+                    ('{0}',{1},{2},'{3}',{4})
+                ", tb_descricao.Text, cb_professor.SelectedValue, Convert.ToInt32(n_maxAlunos.Value), 
+                cb_status.SelectedValue, cb_horario.SelectedValue);
 
-            Banco.dml(queryAlterarTurma, "Turma alterada com sucesso", "ERRO: ");
+                Banco.dml(queryInserirTurma, "Turma inserida com sucesso", "ERRO: ");
 
-            dgv_turmas[1, linha].Value = tb_descricao.Text;
-            dgv_turmas[2, linha].Value = cb_horario.Text;
+                dgv_turmas.DataSource = Banco.dql(vqueryDGV);
+
+            }
+            else
+            {
+                string queryAlterarTurma = String.Format(@"
+                    UPDATE 
+                        tb_turmas
+                    SET 
+                        T_DSCTURMA='{0}',
+                        N_IDPROFESSOR={1},
+                        N_MAXALUNOS={2},
+                        T_STATUS='{3}',
+                        N_IDHORARIO={4}
+                    WHERE
+                        N_IDTURMA={5}
+                ", tb_descricao.Text, cb_professor.SelectedValue, Convert.ToInt32(n_maxAlunos.Value),
+                cb_status.SelectedValue, cb_horario.SelectedValue, Convert.ToInt32(idSelecionado));
+
+                Banco.dml(queryAlterarTurma, "Turma alterada com sucesso", "ERRO: ");
+                dgv_turmas[1, linha].Value = tb_descricao.Text;
+                dgv_turmas[2, linha].Value = cb_horario.SelectedValue;
+            }
+        }
+
+        private void btn_excluirTurma_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Deseja excluir essa turma", "Excluir", MessageBoxButtons.YesNo);
+            if(res == DialogResult.Yes)
+            {
+                string queryEcluirTurma = String.Format(@"
+                    DELETE FROM
+                        tb_turmas
+                    WHERE 
+                        N_IDTURMA={0}
+                ", Convert.ToInt32(idSelecionado));
+                Banco.dml(queryEcluirTurma, "Turma excluída com sucesso", "ERRO: ");
+                dgv_turmas.Rows.Remove(dgv_turmas.CurrentRow);
+            }
         }
     }
 }
